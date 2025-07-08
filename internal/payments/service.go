@@ -6,9 +6,9 @@ import (
 )
 
 func PaymentWorker() {
-    fmt.Println("executando")
+    fmt.Println("Worker is alive")
 }
 
 func HandlePayments(w http.ResponseWriter, r *http.Request) {
-    w.Write([]byte("payments"))
+    w.Write([]byte("payments endpoint"))
 }

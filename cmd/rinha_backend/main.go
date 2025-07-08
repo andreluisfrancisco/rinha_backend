@@ -19,7 +19,6 @@ func main() {
         w.Write([]byte("Rinha Backend"))
     })
 
-
     fmt.Println("Server on :9999")
     err := http.ListenAndServe(":9999", nil)
     if err != nil {
