@@ -9,7 +9,7 @@ RUN go mod download && go mod verify
 
 COPY . .
 
-RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o rinha-gateway
+RUN CGO_ENABLED=0 go build -trimpath -ldflags="-s -w" -o rinha-gateway ./cmd/rinha_backend
 
 FROM alpine:3.18
 
