@@ -3,13 +3,24 @@ package main
 import (
     "fmt"
     "net/http"
+    "time"
 )
 
-func main() {
-    http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintf(w, "Rinha Backend")
-    })
+var client = &http.Client{
+    Transport: &http.Transport{
+        MaxIdleConns:        1000,
+        MaxIdleConnsPerHost: 1000,
+        IdleConnTimeout:     90 * time.Second,
+    },
+    Timeout: 2 * time.Second,
+}
 
-    fmt.Println("Server on :8080")
-    http.ListenAndServe(":8080", nil)
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Rinha backend")
+}
+
+func main() {
+    http.HandleFunc("/", handler)
+    fmt.Println("Server on :9999")
+    http.ListenAndServe(":9999", nil)
 }

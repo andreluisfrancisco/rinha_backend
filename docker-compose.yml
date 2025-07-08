@@ -3,8 +3,28 @@ version: "3.8"
 services:
   app:
     build: .
-    volumes:
-      - .:/app
+    container_name: rinha_backend
     ports:
-      - "8080:8080"
-    command: ["go", "run", "main.go"]
+      - "9999:9999"
+    environment:
+      - PAYMENT_PROCESSOR_DEFAULT=http://payment-processor-default:8080
+      - PAYMENT_PROCESSOR_FALLBACK=http://payment-processor-fallback:8080
+      - GOMAXPROCS=8
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: "650MB"
+    ulimits:
+      nofile:
+        soft: 100000
+        hard: 100000
+    sysctls:
+      net.core.somaxconn: 65535
+    networks:
+      - backend
+      - payment-processor
+networks:
+  backend:
+  payment-processor:
+    external: true
