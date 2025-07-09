@@ -50,5 +50,3 @@ func getEnvAsInt(key string, fallback int) int {
     }
     return fallback
 }
-
-
